@@ -1,0 +1,22 @@
+<h1>Pexels API Odin</h1>
+
+<%= form_with url: root_path, method: :get do |f| %>
+  <%= f.label :collection_id do |text| %>
+    <%= text %>
+    <%= f.text_field :collection_id %>
+  <% end %>
+
+  <%= f.button "Search" %>
+<% end %>
+
+<% unless @photos.nil? || @photos.empty? %>
+  <div>
+    <% @photos.each do |photo| %>
+      <div>
+        <%= link_to photo["url"] do %>
+          <%= image_tag photo["src"]["medium"], alt: photo["alt"] %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
