@@ -15,10 +15,18 @@ class Pexels
   end
 
   def search(id)
-    @conn.get("collections/#{id}").body
+    response = @conn.get("collections/#{id}")
+
+    if response.status == 200
+      response.body
+    else
+      nil
+    end
   end
 
   def photos(data)
+    return if data.nil?
+
     photo_entries = data["media"].select { |res| res["type"] == "Photo" }
 
     photo_entries.map { |entry| entry.slice("url", "src", "alt") }
